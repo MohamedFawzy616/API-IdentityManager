@@ -1,4 +1,5 @@
-﻿using IdentityManager.DTOs;
+﻿using Serilog;
+using IdentityManager.DTOs;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using IdentityManager.Services;
@@ -17,6 +18,10 @@ namespace IdentityManager.Controllers
             passwordService = _passwordService;
             tokenRevocationService = _tokenRevocationService;
         }
+
+
+        [HttpGet("api/auth/index")]
+        public IActionResult Index() { return Ok("working"); }
 
 
         [Authorize(Roles ="admin")]

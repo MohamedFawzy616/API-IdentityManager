@@ -1,0 +1,27 @@
+{
+  "TimeStamp": "2025-11-13T23:01:38.4060591",
+  "Level": "Information",
+  "Message": "📥 Request \"POST\" \"/api/users/register\" responded 400 in 37.4538 ms\nRequestBody: \"{\r\n    \\\"Name\\\" : \\\"MohamedFawzy6162aas2\\\",\r\n    \\\"Email\\\" : \\\"MohamedFawzy6162saa2@gmail.com\\\",\r\n    \\\"Password\\\" : \\\"123456Pa$$a\\\",\r\n    \\\"ConfirmPassword\\\" : \\\"123456Pa$$a\\\"\r\n}\"\nResponseBody: \"{\\\"success\\\":false,\\\"message\\\":\\\"User already exists\\\"}\"",
+  "MessageTemplate": "📥 Request {Method} {Path} responded {StatusCode} in {Elapsed:0.0000} ms\nRequestBody: {RequestBody}\nResponseBody: {ResponseBody}",
+  "Properties": {
+    "Method": "POST",
+    "Path": "/api/users/register",
+    "StatusCode": 400,
+    "Elapsed": 37.4538,
+    "RequestBody": "{\r\n    \"Name\" : \"MohamedFawzy6162aas2\",\r\n    \"Email\" : \"MohamedFawzy6162saa2@gmail.com\",\r\n    \"Password\" : \"123456Pa$$a\",\r\n    \"ConfirmPassword\" : \"123456Pa$$a\"\r\n}",
+    "ResponseBody": "{\"success\":false,\"message\":\"User already exists\"}",
+    "SourceContext": "IdentityManager.Middlewares.SerilogRequestLoggingMiddleware",
+    "RequestId": "80000031-0001-fc00-b63f-84710c7967bb",
+    "RequestPath": "/api/users/register",
+    "MachineName": "DESKTOP-MDNALHH",
+    "ThreadId": 6
+  },
+  "Renderings": {
+    "Elapsed": [
+      {
+        "Format": "0.0000",
+        "Rendering": "37.4538"
+      }
+    ]
+  }
+}

@@ -1,3 +1,4 @@
+using Serilog;
 using System.Text;
 using IdentityManager.Data;
 using IdentityManager.Services;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using IdentityManager.Data.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using IdentityManager.Middlewares;
 
 namespace IdentityManager
 {
@@ -21,16 +23,15 @@ namespace IdentityManager
             builder.Services.AddControllers();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<IPasswordService, PasswordService>();
             builder.Services.AddScoped<ITokenRevocationService, TokenRevocationService>();
             builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             builder.Services.AddScoped<IClientInfoService, ClientInfoService>();
             builder.Services.AddSingleton<IEmailService, EmailService>();
-            builder.Services.AddScoped<IPermissionService, PermissionService>();
 
             builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             builder.Services.AddHttpContextAccessor();
 
@@ -77,8 +78,13 @@ namespace IdentityManager
                 };
             });
 
-
             builder.Services.AddOpenApi();
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                .CreateLogger();
+
+            builder.Host.UseSerilog();
 
             var app = builder.Build();
 
@@ -88,6 +94,8 @@ namespace IdentityManager
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSerilogRequestLoggingCustom();
 
             app.UseAuthorization();
 
@@ -99,6 +107,7 @@ namespace IdentityManager
             }
 
             app.Run();
+            Log.CloseAndFlush();
         }
     }
 }
